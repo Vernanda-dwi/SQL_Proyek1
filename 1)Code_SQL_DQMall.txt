@@ -1,0 +1,53 @@
+#seluruh tabel
+select *
+from `dqlab-vda-01.DQLab_Project.SuperStore`
+
+# 1.Analisis 10 transaksi
+select Product_Name, Category, Sub_Category
+from `dqlab-vda-01.DQLab_Project.SuperStore`
+order by 
+  profit desc
+limit 10
+
+#2 menampilkan produk ID yang memiliki penjualan terbanyak
+select
+  Product_ID,Product_Name,
+  sum(Quantity) as Total_Pembelian_Per_Produk
+from `dqlab-vda-01.DQLab_Project.SuperStore`
+group by
+Product_ID,Product_Name
+order by
+  Total_Pembelian_Per_Produk desc
+
+# lamanya pengiriman
+select Order_Date,Ship_Date,date_diff(Ship_Date,Order_Date,DAY) as Order_To_Ship_Duration
+from `dqlab-vda-01.DQLab_Project.SuperStore`
+
+# ubah kolom order dan ship date
+select Order_Date,Ship_Date,
+  format_date('%d-%B-%Y',Order_Date) as New_Order_Date,
+  format_date('%d-%B-%Y',Ship_Date) as New_Ship_Date,
+from `dqlab-vda-01.DQLab_Project.SuperStore`
+;
+
+# gabungkan semuanya
+select 
+  Order_ID,Customer_ID,Postal_Code,Product_ID,
+  Sales,Quantity,Discount,Profit,Category,Sub_Category,Product_Name,
+  Ship_Mode,Customer_Name,Segment,Country,City,State,Region,
+  format_date('%d-%B-%Y',Order_Date) as New_Order_Date,
+  format_date('%d-%B-%Y',Ship_Date) as New_Ship_Date,
+  date_diff(Ship_Date,Order_Date,DAY) as Order_To_Ship_Duration
+from `dqlab-vda-01.DQLab_Project.SuperStore`
+
+# membuat tabel tahun order
+select 
+  Order_ID,Customer_ID,Postal_Code,Product_ID,
+  Sales,Quantity,Discount,Profit,Category,Sub_Category,Product_Name,
+  Ship_Mode,Customer_Name,Segment,Country,City,State,Region,
+  format_date('%d-%B-%Y',Order_Date) as New_Order_Date,
+  format_date('%d-%B-%Y',Ship_Date) as New_Ship_Date,
+  EXTRACT(Year from Order_Date) as Order_Year,
+  date_diff(Ship_Date,Order_Date,DAY) as Order_To_Ship_Duration
+from `dqlab-vda-01.DQLab_Project.SuperStore`
+;

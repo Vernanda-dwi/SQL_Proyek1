@@ -1,0 +1,7 @@
+"akun_id","nama_akun","tipe_akun"
+1,Kas,Aset
+2,Piutang Usaha,Aset
+3,Hutang Usaha,Kewajiban
+4,Modal Pemilik,Ekuitas
+5,Pendapatan Jasa,Pendapatan
+6,Beban Gaji,Beban
